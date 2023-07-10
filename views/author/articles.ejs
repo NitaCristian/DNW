@@ -7,15 +7,18 @@
 <body>
 <div class="container">
     <h1 class="mt-5">Published Articles</h1>
-    <% if (publishedArticles.length > 0) { %>
+    <% if (published_articles.length > 0) { %>
         <ul class="list-group mt-4">
-            <% publishedArticles.forEach((article) => { %>
+            <% published_articles.forEach((article) => { %>
                 <li class="list-group-item">
                     <%= article.title %>
-                    <!--TODO: created_at, modified_at, published_at, likes-->
+                    <p>Published at: <%= article.published_at %></p>
+                    <p>Created at: <%= article.created_at %></p>
+                    <p>Modified at: <%= article.modified_at %></p>
                     <div class="float-right">
                         <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mr-2">Edit</a>
                         <a href="/articles/<%= article.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="/articles/<%= article.id %>/publish" class="btn btn-warning btn-sm">Publish</a>
                     </div>
                 </li>
             <% }) %>
@@ -25,9 +28,9 @@
     <% } %>
 
     <h1 class="mt-5">Draft Articles</h1>
-    <% if (draftArticles.length > 0) { %>
+    <% if (draft_articles.length > 0) { %>
         <ul class="list-group mt-4">
-            <% draftArticles.forEach((article) => { %>
+            <% draft_articles.forEach((article) => { %>
                 <li class="list-group-item">
                     <%= article.title %>
                     <div class="float-right">
@@ -47,8 +50,8 @@
     </div>
 
     <div class="mt-4">
-            <a href="/users/edit" class="btn btn-success">Settings</a>
-        </div>
+        <a href="/users/edit" class="btn btn-success">Settings</a>
+    </div>
 </div>
 
 <script src="/js/bootstrap.min.js"></script>

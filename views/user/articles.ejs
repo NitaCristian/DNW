@@ -3,11 +3,6 @@
 <head>
     <title>User Articles</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <style>
-        .card-columns {
-            column-count: 3;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
@@ -19,7 +14,8 @@
                     <div class="card-body">
                         <h4 class="card-title"><%= article.title %></h4>
                         <h5 class="card-subtitle mb-2 text-muted"><%= article.subtitle %></h5>
-<!-- TODO: Add publication_date here, truncate some of the content, add a button to link to that article -->
+                        <p><%= article.published_at%></p>
+                        <a class="btn btn-primary" href="/articles/<%= article.id %>">Read</a>
                     </div>
                 </div>
             <% }) %>

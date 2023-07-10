@@ -1,12 +1,22 @@
 const articleRepository = require('../repositories/articlesRepository')
 
 class ArticleController {
-    static index(req, res, next) {
+    static userIndex(req, res, next) {
         articleRepository.all((err, rows) => {
             if (err) {
                 next(err)
             } else {
-                res.render('articles', {articles: rows})
+                res.render('user/articles', {articles: rows})
+            }
+        });
+    }
+
+    static authorIndex(req, res, next) {
+        articleRepository.all((err, rows) => {
+            if (err) {
+                next(err)
+            } else {
+                res.render('author/articles', {published_articles: rows, draft_articles: []})
             }
         });
     }
@@ -35,7 +45,15 @@ class ArticleController {
     }
 
     static show(req, res, next) {
-        // Not needed?
+        const id = req.params.id;
+        articleRepository.get(id, (err, row) => {
+            if (err) {
+                next(err)
+            } else {
+                res.render('user/article', {article: row})
+            }
+        })
+
     }
 
     static edit(req, res, next) {
@@ -49,7 +67,7 @@ class ArticleController {
             if (err) {
                 next(err)
             } else {
-                res.render('edit', {article: row})
+                res.render('author/edit', {article: row})
             }
         })
     }
@@ -63,7 +81,7 @@ class ArticleController {
             content: req.body.content,
             modified_at: '2023-07-10' // TODO: Add current date
         }
-        articleRepository.update(article, (err, row) => {
+        articleRepository.update(article, (err) => {
             if (err) {
                 next(err)
             } else {
@@ -85,8 +103,13 @@ class ArticleController {
 
     static publish(req, res, next) {
         const id = req.params.id;
-        // TODO: Publish article, update publish_date, redirect to author index
-
+        articleRepository.publish_article(id, (err) => {
+            if (err) {
+                next(err)
+            } else {
+                res.redirect('/articles')
+            }
+        })
     }
 }
 

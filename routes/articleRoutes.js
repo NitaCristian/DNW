@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const articleController = require('../controllers/articleController')
-const requireLogin = require("../middleware/authMiddleware");
+
+router.get('/dashboard', articleController.authorIndex)
 
 router.get("/create", articleController.create);
 
@@ -17,6 +18,6 @@ router.get("/:id", articleController.show);
 
 router.post("/", articleController.store);
 
-router.get("/", articleController.index);
+router.get("/", articleController.userIndex);
 
 module.exports = router;

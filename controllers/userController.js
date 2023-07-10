@@ -1,13 +1,8 @@
 const userRepository = require('../repositories/userRepository')
 
 class UserController {
-    static index(req, res, next) {
-        // TODO: Order by published_at
-        res.render('user/index')
-    }
-
-    static create(req, res, next) {
-        res.render("register");
+    static create(req, res) {
+        res.render("user/register");
     }
 
     static store(req, res, next) {
@@ -20,8 +15,8 @@ class UserController {
         })
     }
 
-    static login(req, res, next) {
-        res.render("login");
+    static login(req, res) {
+        res.render("user/login");
     }
 
     static authenticate(req, res, next) {
@@ -50,7 +45,8 @@ class UserController {
             if (err) {
                 next(err)
             } else {
-                res.render('/user/settings', {user: row})
+                if (row !== undefined) res.render('user/settings', {user: row})
+                else res.redirect('/users/login')
             }
         })
     }

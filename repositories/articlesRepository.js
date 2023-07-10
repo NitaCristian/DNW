@@ -66,6 +66,17 @@ class ArticlesRepository {
             }
         });
     }
+
+    static publish_article(id, callback) {
+        db.run('UPDATE articles SET published_at = date() WHERE id = ?', id, (err) => {
+            if (err) {
+                callback(err)
+            } else {
+                callback(null);
+            }
+        })
+    }
+
 }
 
 module.exports = ArticlesRepository;
