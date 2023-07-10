@@ -1,0 +1,28 @@
+Keep track of article views
+
+Add tags to articles
+
+Add reactions to articles
+
+Add comments to articles
+
+Add rich text editor to edit articles
+
+Add form validation
+
+Polish application
+
+Separate creation of a new article into two routes,
+    one to create and one to store, so it doesn't automatically add an empty article
+
+Add a log table and keep track of changes
+
+Add blog name and description
+create table blog_settings (
+    blog_name
+)
+
+
+?Joi / Express-Validator
+?Date-Fns
+?https://summernote.org/

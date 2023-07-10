@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Micro-blogging Platform</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <style>
+        .jumbotron {
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <% if (name !== null) { %>
+        <h1>Hello <%= name %></h1>
+    <% } %>
+
+    <div class="jumbotron mt-5">
+        <h1 class="display-4">Welcome to the Micro-blogging Platform</h1>
+        <p class="lead">Share your thoughts, connect with others, and discover interesting content.</p>
+        <hr class="my-4">
+        <p>Join our community today and start micro-blogging!</p>
+        <a class="btn btn-primary btn-lg" href="/users/register" role="button">Register</a>
+        <a class="btn btn-secondary btn-lg" href="/users/login" role="button">Login</a>
+    </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

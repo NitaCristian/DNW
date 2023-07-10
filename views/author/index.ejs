@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Articles</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Published Articles</h1>
+    <% if (publishedArticles.length > 0) { %>
+        <ul class="list-group mt-4">
+            <% publishedArticles.forEach((article) => { %>
+                <li class="list-group-item">
+                    <%= article.title %>
+                    <!--TODO: created_at, modified_at, published_at, likes-->
+                    <div class="float-right">
+                        <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mr-2">Edit</a>
+                        <a href="/articles/<%= article.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No published articles found.</p>
+    <% } %>
+
+    <h1 class="mt-5">Draft Articles</h1>
+    <% if (draftArticles.length > 0) { %>
+        <ul class="list-group mt-4">
+            <% draftArticles.forEach((article) => { %>
+                <li class="list-group-item">
+                    <%= article.title %>
+                    <div class="float-right">
+                        <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mr-2">Edit</a>
+                        <a href="/articles/<%= article.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="/articles/<%= article.id %>/publish" class="btn btn-success btn-sm">Publish</a>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No draft articles found.</p>
+    <% } %>
+
+    <div class="mt-4">
+        <a href="/articles/create" class="btn btn-success">Create New Article</a>
+    </div>
+
+    <div class="mt-4">
+            <a href="/users/edit" class="btn btn-success">Settings</a>
+        </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

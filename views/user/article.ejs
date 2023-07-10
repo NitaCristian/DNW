@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Article</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    </head>
+<body>
+<div class="container">
+    <h1 class="mt-5"><%= article.title %></h1>
+    <p><%= article.content %></p>
+
+    <div>
+        <a href="/articles" class="btn btn-secondary">Back</a>
+        <a href="/articles/<%= article.id %>/edit" class="btn btn-primary ml-2">Edit</a>
+        <a href="/articles/<%= article.id %>/delete" class="btn btn-danger ml-2">Delete</a>
+    </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
