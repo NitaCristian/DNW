@@ -10,13 +10,13 @@ class UserController {
             if (err) {
                 next(err)
             } else {
-                res.redirect('/users/login')
+                res.redirect('/users/login', {title: 'MicroVerse'})
             }
         })
     }
 
     static login(req, res) {
-        res.render("user/login");
+        res.render("user/login", {title: 'MicroVerse'});
     }
 
     static authenticate(req, res, next) {
@@ -45,8 +45,9 @@ class UserController {
             if (err) {
                 next(err)
             } else {
-                if (row !== undefined) res.render('user/settings', {user: row})
-                else res.redirect('/users/login')
+                if (row !== undefined) {
+                    res.render('user/settings', {user: row, title: 'MicroVerse'});
+                } else res.redirect('/users/login')
             }
         })
     }

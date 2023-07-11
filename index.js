@@ -5,6 +5,15 @@ const sqlite3 = require('sqlite3').verbose();
 const methodOverride = require('method-override');
 const session = require('express-session');
 const path = require('path');
+const expressLayouts = require('express-ejs-layouts')
+
+//set the app to use ejs for rendering
+app.set('view engine', 'ejs');
+app.use(expressLayouts)
+app.set('views', __dirname + '/views/')
+app.set('layout', 'shared/layout')
+
+// TODO: Get site settings and make them global
 
 app.use(session({
     secret: 'your-secret-key', resave: false, saveUninitialized: false
@@ -34,6 +43,8 @@ global.db = new sqlite3.Database('./database.db', function (err) {
     }
 });
 
+
+
 // Middleware for serving static files
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
@@ -41,12 +52,11 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 // TODO: Add a middleware for handling errors
 // TODO: Add error pages such as 404 and 512
 
+
+
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes')
 const homeRoutes = require('./routes/homeRoutes')
-
-//set the app to use ejs for rendering
-app.set('view engine', 'ejs');
 
 //this adds all the userRoutes to the app under the path /user
 app.use('/', homeRoutes)

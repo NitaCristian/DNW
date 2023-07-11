@@ -27,6 +27,14 @@ create table articles
     foreign key (author_id) references users (id)
 );
 
+CREATE TABLE blog_settings
+(
+    title       TEXT NOT NULL,
+    description TEXT,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 create table likes
 (
     id         integer primary key autoincrement not null,

@@ -6,7 +6,7 @@ class ArticleController {
             if (err) {
                 next(err)
             } else {
-                res.render('user/articles', {articles: rows})
+                res.render('user/articles', {articles: rows, title: 'MicroVerse'})
             }
         });
     }
@@ -16,12 +16,16 @@ class ArticleController {
             if (err) {
                 next(err)
             } else {
-                res.render('author/articles', {published_articles: rows, draft_articles: []})
+                res.render('author/articles', {published_articles: rows, draft_articles: [], title: 'MicroVerse'})
             }
         });
     }
 
     static create(req, res, next) {
+        res.render('author/create', {title: 'MicroVerse'});
+    }
+
+    static store(req, res, next) {
         let user_id = -1;
         if (req.session !== undefined && req.session.user !== undefined) user_id = req.session.user.id;
 
@@ -30,18 +34,17 @@ class ArticleController {
             return;
         }
 
-        const article = {title: "", subtitle: "", content: "", author_id: user_id}
+        const article = {
+            title: req.body.title, subtitle: req.body.subtitle, content: req.body.content, author_id: user_id
+        }
         articleRepository.insert(article, (err, lastId) => {
             if (err) {
                 next(err)
             } else {
-                res.redirect(`${lastId}/edit`);
+                res.redirect(`/articles/dashboard`);
             }
         })
-    }
 
-    static store(req, res, next) {
-        // Not needed?
     }
 
     static show(req, res, next) {
@@ -50,24 +53,28 @@ class ArticleController {
             if (err) {
                 next(err)
             } else {
-                res.render('user/article', {article: row})
+                res.render('user/article', {article: row, title: 'MicroVerse'})
             }
         })
 
     }
 
     static edit(req, res, next) {
-        const id = req.params.id;
-        if (id < 0) {
+        let user_id = -1;
+        if (req.session !== undefined && req.session.user !== undefined) user_id = req.session.user.id;
+
+        if (user_id < 0) {
             res.redirect('/users/login');
             return;
         }
 
-        articleRepository.get(id, (err, row) => {
+
+        const article_id = req.params.id;
+        articleRepository.get(article_id, (err, row) => {
             if (err) {
                 next(err)
             } else {
-                res.render('author/edit', {article: row})
+                res.render('author/edit', {article: row, title: 'MicroVerse'})
             }
         })
     }
@@ -79,7 +86,7 @@ class ArticleController {
             title: req.body.title,
             subtitle: req.body.subtitle,
             content: req.body.content,
-            modified_at: '2023-07-10' // TODO: Add current date
+            modified_at: new Date().toISOString().split('T')[0]
         }
         articleRepository.update(article, (err) => {
             if (err) {

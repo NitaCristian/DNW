@@ -1,42 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Articles</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-</head>
-<body>
 <div class="container">
     <h1 class="mt-5">Settings</h1>
 
     <form action="/users/<%= user.id %>/update" method="POST">
-            <div class="form-group">
-                <label for="blog_name">Blog name</label>
-                <textarea class="form-control" id="blog_name" name="blog_name" rows="4" required><%=  %></textarea>
-            </div>
-            <div class="form-group">
-                <label for="first_name">First name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" value="<%= user.first_name %>" required>
-            </div>
-            <div class="form-group">
-                <label for="last_name">Last name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" value="<%= user.last_name %>" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="<%= user.email %>" required>
-            </div>
-            <div class="form-group">
-                <label for="old_password">Old password</label>
-                <input type="password" class="form-control" id="old_password" name="old_password" required>
-            </div>
-            <div class="form-group">
-                <label for="new_password">New password</label>
-                <input type="password" class="form-control" id="new_password" name="new_password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+        <div class="form-group">
+            <label for="blog_name">Blog name</label>
+            <textarea class="form-control" id="blog_name" name="blog_name" rows="4" required><%=  %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="first_name">First name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="<%= user.first_name %>" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="<%= user.last_name %>" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+        </div>
+        <div class="form-group">
+            <label for="old_password">Old password</label>
+            <input type="password" class="form-control" id="old_password" name="old_password" required>
+        </div>
+        <div class="form-group">
+            <label for="new_password">New password</label>
+            <input type="password" class="form-control" id="new_password" name="new_password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 </div>
-
-<script src="/js/bootstrap.min.js"></script>
-</body>
-</html>
