@@ -2,40 +2,51 @@ const articleRepository = require('../repositories/articlesRepository')
 
 class ArticleController {
     static userIndex(req, res, next) {
-        articleRepository.all((err, rows) => {
+        articleRepository.allPublished((err, rows) => {
             if (err) {
                 next(err)
             } else {
-                res.render('user/articles', {articles: rows, title: 'MicroVerse'})
+                res.render('user/articles', {articles: rows, title: global.title})
             }
         });
     }
 
     static authorIndex(req, res, next) {
-        articleRepository.all((err, rows) => {
+        const userId = req.session.user.id;
+
+        let draft_articles = []
+        articleRepository.allDraftsByAuthor(userId, (err, rows) => {
             if (err) {
                 next(err)
             } else {
-                res.render('author/articles', {published_articles: rows, draft_articles: [], title: 'MicroVerse'})
+                draft_articles = rows
             }
         });
+
+        let published_articles = []
+        articleRepository.allPublishedByAuthor(userId, (err, rows) => {
+            if (err) {
+                next(err)
+            } else {
+                published_articles = rows
+            }
+        })
+
+        res.render('author/articles', {
+            published_articles: published_articles, draft_articles: draft_articles, title: global.title
+        })
     }
 
     static create(req, res, next) {
-        res.render('author/create', {title: 'MicroVerse'});
+        res.render('author/create', {title: global.title});
     }
 
     static store(req, res, next) {
-        let user_id = -1;
-        if (req.session !== undefined && req.session.user !== undefined) user_id = req.session.user.id;
-
-        if (user_id < 0) {
-            res.redirect('/users/login');
-            return;
-        }
-
         const article = {
-            title: req.body.title, subtitle: req.body.subtitle, content: req.body.content, author_id: user_id
+            title: req.body.title,
+            subtitle: req.body.subtitle,
+            content: req.body.content,
+            author_id: req.session.user.id
         }
         articleRepository.insert(article, (err, lastId) => {
             if (err) {
@@ -53,36 +64,26 @@ class ArticleController {
             if (err) {
                 next(err)
             } else {
-                res.render('user/article', {article: row, title: 'MicroVerse'})
+                res.render('user/article', {article: row, title: global.title})
             }
         })
 
     }
 
     static edit(req, res, next) {
-        let user_id = -1;
-        if (req.session !== undefined && req.session.user !== undefined) user_id = req.session.user.id;
-
-        if (user_id < 0) {
-            res.redirect('/users/login');
-            return;
-        }
-
-
         const article_id = req.params.id;
         articleRepository.get(article_id, (err, row) => {
             if (err) {
                 next(err)
             } else {
-                res.render('author/edit', {article: row, title: 'MicroVerse'})
+                res.render('author/edit', {article: row, title: global.title})
             }
         })
     }
 
     static update(req, res, next) {
-        const id = req.params.id;
         const article = {
-            id: id,
+            id: req.params.id,
             title: req.body.title,
             subtitle: req.body.subtitle,
             content: req.body.content,
@@ -98,8 +99,7 @@ class ArticleController {
     }
 
     static destroy(req, res, next) {
-        const id = req.params.id;
-        articleRepository.delete(id, (err) => {
+        articleRepository.delete(req.params.id, (err) => {
             if (err) {
                 next(err)
             } else {
@@ -109,12 +109,34 @@ class ArticleController {
     }
 
     static publish(req, res, next) {
-        const id = req.params.id;
-        articleRepository.publish_article(id, (err) => {
+        articleRepository.publish_article(req.params.id, (err) => {
             if (err) {
                 next(err)
             } else {
                 res.redirect('/articles')
+            }
+        })
+    }
+
+    static like(req, res, next) {
+        const id = req.params.id
+        articleRepository.add_like(id, (err) => {
+            if (err) {
+                next(err)
+            } else {
+                res.redirect(`/articles/${id}`)
+            }
+        })
+
+    }
+
+    static dislike(req, res, next) {
+        const id = req.params.id;
+        articleRepository.remove_like(id, (err) => {
+            if (err) {
+                next(err)
+            } else {
+                res.redirect(`/articles/${id}`)
             }
         })
     }

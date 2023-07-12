@@ -1,8 +1,8 @@
 const requireLogin = (req, res, next) => {
-    if (req.session.userId) {
+    if (req.session.user && req.session.user.id) {
         next();
     } else {
-        res.status(401).send('Unauthorized');
+        res.redirect('/users/login');
     }
 };
 

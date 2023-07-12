@@ -9,17 +9,17 @@ create table if not exists users
     first_name text                              not null,
     last_name  text                              not null,
     email      text                              not null,
-    password   text                              not null,
-    avatar     blob                              null
+    password   text                              not null
 );
 
 create table articles
 (
     id           integer primary key autoincrement not null,
-    -- todo: image
     title        text                              not null,
     subtitle     text                              not null,
     content      text                              not null,
+    likes        int  default 0                    not null,
+    dislikes     int  default 0                    not null,
     author_id    integer                           not null,
     created_at   date default current_date         not null,
     published_at date                              null,
@@ -30,63 +30,22 @@ create table articles
 CREATE TABLE blog_settings
 (
     title       TEXT NOT NULL,
-    description TEXT,
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-create table likes
-(
-    id         integer primary key autoincrement not null,
-    article_id integer                           not null,
-    comment_id integer                           not null,
-    user_id    integer                           not null,
-    foreign key (article_id) references articles (id),
-    foreign key (comment_id) references comments (id),
-    foreign key (user_id) references users (id)
+    description TEXT not null
 );
 
 create table comments
 (
     id         integer primary key autoincrement not null,
-    article_id integer                           not null,
     user_id    integer                           not null,
+    article_id integer                           not null,
     message    text                              not null,
     created_at date default current_date         not null,
     foreign key (user_id) references users (id),
     foreign key (article_id) references articles (id)
 );
 
-create table tags
-(
-    id   integer primary key autoincrement not null,
-    name text                              not null
-);
-
-create table articles_tags
-(
-    id         integer primary key autoincrement not null,
-    article_id integer                           not null,
-    tag_id     integer                           not null,
-    foreign key (article_id) references articles (id),
-    foreign key (tag_id) references tags (id)
-);
-
-create table reactions
-(
-    id    integer primary key autoincrement not null,
-    name  text                              not null,
-    image blob                              not null
-);
-
-create table articles_reactions
-(
-    id          integer primary key autoincrement not null,
-    article_id  integer                           not null,
-    reaction_id integer                           not null,
-    foreign key (article_id) references articles (id),
-    foreign key (reaction_id) references reactions (id)
-);
+insert into blog_settings (title, description)
+values ('MicroVerse', 'This is the best blog ever made!');
 
 COMMIT;
 

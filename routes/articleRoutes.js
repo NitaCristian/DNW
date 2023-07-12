@@ -1,20 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const articleController = require('../controllers/articleController')
+const requireLogin = require('../middleware/authMiddleware')
 
-router.get('/dashboard', articleController.authorIndex)
+router.get('/dashboard', requireLogin, articleController.authorIndex)
 
-router.get("/create", articleController.create);
+router.get("/create", requireLogin, articleController.create);
 
-router.post("/create", articleController.store);
+router.post("/create", requireLogin, articleController.store);
 
-router.get('/:id/publish', articleController.publish)
+router.get('/:id/like', requireLogin, articleController.like);
 
-router.get("/:id/edit", articleController.edit);
+router.get('/:id/dislike', requireLogin, articleController.dislike);
 
-router.post("/:id/update", articleController.update);
+router.get('/:id/publish', requireLogin, articleController.publish)
 
-router.post("/:id/delete", articleController.destroy);
+router.get("/:id/edit", requireLogin, articleController.edit);
+
+router.post("/:id/update", requireLogin, articleController.update);
+
+router.post("/:id/delete", requireLogin, articleController.destroy);
 
 router.get("/:id", articleController.show);
 

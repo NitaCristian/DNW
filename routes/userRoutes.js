@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController')
+const requireLogin = require('../middleware/authMiddleware')
 
 router.get('/login', userController.login);
 
@@ -10,8 +11,8 @@ router.get('/register', userController.create);
 
 router.post('/register', userController.store)
 
-router.get('/edit', userController.edit)
+router.get('/edit', requireLogin, userController.edit)
 
-router.post('/:id/update', userController.update)
+router.post('/update', requireLogin, userController.update)
 
 module.exports = router;

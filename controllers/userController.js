@@ -10,13 +10,13 @@ class UserController {
             if (err) {
                 next(err)
             } else {
-                res.redirect('/users/login', {title: 'MicroVerse'})
+                res.redirect('/users/login', {title: global.title})
             }
         })
     }
 
     static login(req, res) {
-        res.render("user/login", {title: 'MicroVerse'});
+        res.render("user/login", {title: global.title});
     }
 
     static authenticate(req, res, next) {
@@ -38,30 +38,26 @@ class UserController {
     }
 
     static edit(req, res, next) {
-        let user_id = -1;
-        if (req.session !== undefined && req.session.user !== undefined) user_id = req.session.user.id;
+        let user_id = req.session.user.id;
 
         userRepository.getById(user_id, (err, row) => {
             if (err) {
                 next(err)
             } else {
                 if (row !== undefined) {
-                    res.render('user/settings', {user: row, title: 'MicroVerse'});
+                    res.render('user/edit', {user: row, title: global.title});
                 } else res.redirect('/users/login')
             }
         })
     }
 
     static update(req, res, next) {
-        let user_id = -1;
-        if (req.session !== undefined && req.session.user !== undefined) user_id = req.session.user.id;
-
         const user = {
-            id: user_id,
+            id: req.session.user.id,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.new_password
         }
 
         userRepository.update(user, (err) => {
