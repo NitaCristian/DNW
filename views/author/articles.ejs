@@ -1,48 +1,30 @@
 <div class="container">
-    <h1 class="mt-5">Published Articles</h1>
+    <h1 class="mt-4">Author Dashboard - Edit your drafts and publish articles!</h1>
+
+    <div class="mt-4">
+        <a href="/articles/create" class="btn btn-success">Create New Article</a>
+        <a href="/home/edit" class="btn btn-info">Settings</a>
+    </div>
+
+    <h2 class="mt-5">Published Articles</h2>
     <% if (published_articles.length > 0) { %>
-        <ul class="list-group mt-4">
+        <div class="row mt-4">
             <% published_articles.forEach((article) => { %>
-                <li class="list-group-item">
-                    <%= article.title %>
-                    <p>Published at: <%= article.published_at %></p>
-                    <p>Created at: <%= article.created_at %></p>
-                    <p>Modified at: <%= article.modified_at %></p>
-                    <div class="float-right">
-                        <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mr-2">Edit</a>
-                        <a href="/articles/<%= article.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
-                        <a href="/articles/<%= article.id %>/publish" class="btn btn-warning btn-sm">Publish</a>
-                    </div>
-                </li>
+                <%- include('../partials/published_article', { article: article }) %>
             <% }) %>
-        </ul>
+        </div>
     <% } else { %>
         <p>No published articles found.</p>
     <% } %>
 
-    <h1 class="mt-5">Draft Articles</h1>
+    <h2 class="mt-5">Draft Articles</h2>
     <% if (draft_articles.length > 0) { %>
-        <ul class="list-group mt-4">
+        <div class="row mt-4">
             <% draft_articles.forEach((article) => { %>
-                <li class="list-group-item">
-                    <%= article.title %>
-                    <div class="float-right">
-                        <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mr-2">Edit</a>
-                        <a href="/articles/<%= article.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
-                        <a href="/articles/<%= article.id %>/publish" class="btn btn-success btn-sm">Publish</a>
-                    </div>
-                </li>
+                <%- include('../partials/draft_article', { article: article }) %>
             <% }) %>
-        </ul>
+        </div>
     <% } else { %>
         <p>No draft articles found.</p>
     <% } %>
-
-    <div class="mt-4">
-        <a href="/articles/create" class="btn btn-success">Create New Article</a>
-    </div>
-
-    <div class="mt-4">
-        <a href="/users/edit" class="btn btn-success">Settings</a>
-    </div>
 </div>

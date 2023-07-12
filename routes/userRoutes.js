@@ -15,4 +15,6 @@ router.get('/edit', requireLogin, userController.edit)
 
 router.post('/update', requireLogin, userController.update)
 
+router.get('/logout', requireLogin, userController.logout)
+
 module.exports = router;

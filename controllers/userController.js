@@ -5,53 +5,51 @@ class UserController {
         res.render("user/register");
     }
 
-    static store(req, res, next) {
-        userRepository.insert(req.body, (err, lastID) => {
-            if (err) {
-                next(err)
-            } else {
-                res.redirect('/users/login', {title: global.title})
-            }
-        })
+    static async store(req, res, next) {
+        try {
+            const lastID = await userRepository.insert(req.body);
+            res.redirect('/user/login');
+        } catch (err) {
+            next(err);
+        }
     }
 
     static login(req, res) {
-        res.render("user/login", {title: global.title});
+        res.render("user/login");
     }
 
-    static authenticate(req, res, next) {
-        userRepository.getByEmailPassword(req.body, (err, row) => {
-            if (err) {
-                next(err);
-                return;
-            }
+    static async authenticate(req, res, next) {
+        try {
+            const row = await userRepository.getByEmailPassword(req.body);
             if (row) {
                 req.session.user = {
                     id: row.id, name: `${row.first_name} ${row.last_name}`
                 };
-
-                res.redirect('/articles')
+                res.redirect('/articles');
             } else {
-                res.redirect('/users/login')
+                res.redirect('/user/login');
             }
-        })
+        } catch (err) {
+            next(err);
+        }
     }
 
-    static edit(req, res, next) {
-        let user_id = req.session.user.id;
+    static async edit(req, res, next) {
+        const user_id = req.session.user.id;
 
-        userRepository.getById(user_id, (err, row) => {
-            if (err) {
-                next(err)
+        try {
+            const row = await userRepository.getById(user_id);
+            if (row !== undefined) {
+                res.render('user/edit', {user: row});
             } else {
-                if (row !== undefined) {
-                    res.render('user/edit', {user: row, title: global.title});
-                } else res.redirect('/users/login')
+                res.redirect('/user/login');
             }
-        })
+        } catch (err) {
+            next(err);
+        }
     }
 
-    static update(req, res, next) {
+    static async update(req, res, next) {
         const user = {
             id: req.session.user.id,
             first_name: req.body.first_name,
@@ -60,13 +58,22 @@ class UserController {
             password: req.body.new_password
         }
 
-        userRepository.update(user, (err) => {
+        try {
+            await userRepository.update(user);
+            res.redirect('/');
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    static async logout(req, res, next) {
+        req.session.destroy((err) => {
             if (err) {
-                next(err)
+                console.error('Error destroying session:', err);
             } else {
-                res.redirect('/users/')
+                res.redirect('/user/login');
             }
-        })
+        });
     }
 }
 

@@ -9,11 +9,11 @@ router.get("/create", requireLogin, articleController.create);
 
 router.post("/create", requireLogin, articleController.store);
 
-router.get('/:id/like', requireLogin, articleController.like);
+router.post('/:id/like', requireLogin, articleController.like);
 
-router.get('/:id/dislike', requireLogin, articleController.dislike);
+router.post('/:id/dislike', requireLogin, articleController.dislike);
 
-router.get('/:id/publish', requireLogin, articleController.publish)
+router.post('/:id/publish', requireLogin, articleController.publish)
 
 router.get("/:id/edit", requireLogin, articleController.edit);
 

@@ -7,6 +7,20 @@ const session = require('express-session');
 // const path = require('path');
 const expressLayouts = require('express-ejs-layouts')
 const blogSettingsRepository = require('./repositories/blogSettingsRepository')
+const handleErrors = require('./middleware/errorMiddleware')
+
+app.use(session({
+    secret: 'thisismysecretkeyplasedonthack', resave: false, saveUninitialized: false
+}));
+
+// Middleware to set user object in response locals
+app.use((req, res, next) => {
+    if (req.session) res.locals.user = req.session.user; else res.locals.user = null;
+    next();
+});
+
+app.use(handleErrors)
+
 
 //set the app to use ejs for rendering
 app.set('view engine', 'ejs');
@@ -14,22 +28,9 @@ app.use(expressLayouts)
 app.set('views', __dirname + '/views/')
 app.set('layout', 'shared/layout')
 
-app.use(session({
-    secret: 'thisismysecretkeyplasedonthack', resave: false, saveUninitialized: false
-}));
-
 // Middleware for parsing request bodies
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-// // Middleware for method overriding
-// app.use(methodOverride(function (req, res) {
-//     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-//         var method = req.body._method;
-//         delete req.body._method;
-//         return method;
-//     }
-// }));
 
 //items in the global namespace are accessible throughout the node application
 global.db = new sqlite3.Database('./database.db', function (err) {
@@ -42,22 +43,23 @@ global.db = new sqlite3.Database('./database.db', function (err) {
     }
 });
 
-blogSettingsRepository.get((err, row) => {
-    if (err) {
+async function fetchBlogSettings() {
+    try {
+        const row = await blogSettingsRepository.get();
+        global.title = row.title;
+        global.description = row.description;
+    } catch (err) {
         console.error(err);
         process.exit(1);
-    } else {
-        global.title = row.title
-        global.description = row.description
     }
-})
+}
+
+fetchBlogSettings();
+
 
 // Middleware for serving static files
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-
-// TODO: Add a middleware for handling errors
-// TODO: Add error pages such as 404 and 512
 
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes')

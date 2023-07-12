@@ -8,22 +8,22 @@ create table if not exists users
     id         integer primary key autoincrement not null,
     first_name text                              not null,
     last_name  text                              not null,
-    email      text                              not null,
+    email      text unique                       not null,
     password   text                              not null
 );
 
 create table articles
 (
-    id           integer primary key autoincrement not null,
-    title        text                              not null,
-    subtitle     text                              not null,
-    content      text                              not null,
-    likes        int  default 0                    not null,
-    dislikes     int  default 0                    not null,
-    author_id    integer                           not null,
-    created_at   date default current_date         not null,
-    published_at date                              null,
-    modified_at  date                              null,
+    id           integer primary key autoincrement  not null,
+    title        text                               not null,
+    subtitle     text                               not null,
+    content      text                               not null,
+    likes        int      default 0                 not null,
+    dislikes     int      default 0                 not null,
+    author_id    integer                            not null,
+    created_at   DATETIME default CURRENT_TIMESTAMP not null,
+    published_at DATETIME                           null,
+    modified_at  DATETIME                           null,
     foreign key (author_id) references users (id)
 );
 

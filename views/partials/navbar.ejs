@@ -13,12 +13,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/articles">Articles</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/register">Register</a>
-                </li>
+                <% if (user === undefined) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/register">Register</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/edit">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </div>
