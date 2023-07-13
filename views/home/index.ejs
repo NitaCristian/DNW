@@ -1,14 +1,9 @@
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4">Welcome to the Micro-blogging Platform</h1>
-        <p class="lead">Share your thoughts, connect with others, and discover interesting content.</p>
-        <hr class="my-4">
-        <p><%= description %></p>
-        <% if (user === undefined) { %>
-            <a class="btn btn-primary btn-lg" href="/user/register" role="button">Register</a>
-            <a class="btn btn-secondary btn-lg" href="/user/login" role="button">Login</a>
-        <% } else { %>
-            <a class="btn btn-danger btn-lg" href="/logout" role="button">Logout</a>
-        <% } %>
+        <h1 class="display-4"><%= title%></h1>
+
+        <hr>
+
+        <p><%- description %></p>
     </div>
 </div>

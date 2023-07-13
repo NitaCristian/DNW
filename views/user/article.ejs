@@ -1,4 +1,8 @@
 <div class="container">
+    <div class="mt-5">
+        <a href="/articles" class="btn btn-secondary">Back</a>
+    </div>
+
     <div class="text-center">
         <h1 class="mt-5"><%= article.title %></h1>
         <h3 class="mt-2"><%= article.subtitle %></h3>
@@ -14,11 +18,7 @@
     <hr>
 
     <div>
-        <p><%= article.content %></p>
-    </div>
-
-    <div class="text-center mt-5">
-        <a href="/articles" class="btn btn-secondary">Back</a>
+        <p><%- article.content %></p>
     </div>
 
     <div class="mt-5">
@@ -41,7 +41,7 @@
                             <small><%= comment.created_at %></small>
                             <div class="mt-2">
                                 <form action="/comments/<%= comment.id %>/edit" method="GET" style="display: inline;">
-                                    <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                                    <button type="" class="btn btn-primary btn-sm">Edit</button>
                                 </form>
                                 <form action="/comments/<%= comment.id %>/delete" method="POST"
                                       style="display: inline;">

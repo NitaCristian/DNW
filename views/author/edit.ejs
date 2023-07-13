@@ -3,18 +3,22 @@
 
     <form action="/articles/<%= article.id %>/update" method="POST">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="<%= article.title %>" required>
+            <label for="title">Title
+                <input type="text" class="form-control" id="title" name="title" value="<%= article.title %>" required>
+            </label>
         </div>
         <div class="form-group">
-            <label for="subtitle">Subtitle</label>
-            <input type="text" class="form-control" id="subtitle" name="subtitle" value="<%= article.subtitle %>"
-                   required>
+            <label for="subtitle">Subtitle
+                <input type="text" class="form-control" id="subtitle" name="subtitle" value="<%= article.subtitle %>"
+                       required>
+            </label>
         </div>
         <div class="form-group">
-            <label for="content">Content</label>
-            <textarea class="form-control" id="content" name="content" rows="4"
-                      required><%= article.content %></textarea>
+            <label for="content">Content
+                <textarea class="form-control summernote-editor" id="content" name="content" rows="4"
+                          required><%- article.content %>
+                </textarea>
+            </label>
         </div>
         <button type="submit" class="btn btn-primary">Update Article</button>
     </form>

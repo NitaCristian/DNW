@@ -4,20 +4,19 @@
             <h5 class="card-title"><%= article.title %></h5>
             <h6 class="card-subtitle mt-1"><%= article.subtitle %></h6>
             <div class="card-body">
-                <p class="card-text"><%= article.content %></p>
+<!--                <p class="card-text"><%= article.content %></p>-->
                 <p class="card-text">
                     Created at: <%= article.created_at %> <br>
                     Modified at: <%= article.modified_at %> <br>
-                    Content: <%= article.content %>
                 </p>
             </div>
             <div class="float-start">
-                <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mr-2">Edit</a>
+                <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm">Edit</a>
 
-                <a href="/articles/<%= article.id %>/" class="btn btn-primary btn-sm mr-2">Read</a>
+                <a href="/articles/<%= article.id %>/" class="btn btn-primary btn-sm mb-1">Read</a>
 
                 <form action="/articles/<%= article.id %>/delete" method="POST">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="submit" class="btn btn-danger btn-sm mb-1">Delete</button>
                 </form>
 
                 <form action="/articles/<%= article.id %>/publish" method="POST">

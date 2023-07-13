@@ -60,8 +60,7 @@ fetchBlogSettings();
 
 
 // Middleware for serving static files
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/public', express.static(__dirname + '/public'))
 
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes')

@@ -4,13 +4,15 @@
     <form action="/update" method="POST">
         <div class="form-group">
             <label for="blog_name">Title
-                <textarea class="form-control" id="title" name="title" rows="4" required><%= title %></textarea>
+                <input type="text" class="form-control" id="title" name="title" value="<%= title %>" required>
             </label>
         </div>
         <div class="form-group">
             <label for="first_name">Description
-                <input type="text" class="form-control" id="description" name="description" value="<%= description %>"
-                       required>
+                text
+                <textarea class="form-control summernote-editor" id="description" name="description" rows="4" required>
+                    <%- description %>
+                </textarea>
             </label>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
