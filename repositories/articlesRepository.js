@@ -82,7 +82,7 @@ class ArticlesRepository {
     }
 
     static update(article) {
-        const {id, title, subtitle, content, modified_at} = article;
+        const {id, title, subtitle, content} = article;
 
         return new Promise((resolve, reject) => {
             db.run('UPDATE articles SET title = ?, subtitle = ?, content = ?, modified_at = datetime(\'now\') WHERE id = ?', [title, subtitle, content, id], function (err) {

@@ -7,7 +7,7 @@ In your copy, delete the following files and folders:
 * .git (the hidden folder with your git repository)
 * database.db (your database)
 
-Make sure that your package.json file includes all of the dependencies for your project NB. you need to use
+Make sure that your package.json file includes all the dependencies for your project NB. you need to use
 the ```--save``` tag each time you use npm to install a dependency
 
 #### Getting started with my project ####

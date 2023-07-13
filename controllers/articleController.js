@@ -25,7 +25,7 @@ class ArticleController {
         }
     }
 
-    static create(req, res, next) {
+    static create(req, res) {
         res.render('author/create');
     }
 

@@ -1,4 +1,4 @@
-const handleError = (err, req, res, next) => {
+const handleError = (err, req, res) => {
     // Log the error
     console.error(err.stack);
 

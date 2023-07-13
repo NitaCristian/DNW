@@ -7,7 +7,6 @@ class HomeController {
 
     static async edit(req, res, next) {
         try {
-            const settings = await blogSettingsRepository.get();
             res.render('home/edit')
         } catch (err) {
             next(err);

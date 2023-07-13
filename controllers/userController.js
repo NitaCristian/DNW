@@ -7,7 +7,7 @@ class UserController {
 
     static async store(req, res, next) {
         try {
-            const lastID = await userRepository.insert(req.body);
+            await userRepository.insert(req.body);
             res.redirect('/user/login');
         } catch (err) {
             next(err);
@@ -66,7 +66,7 @@ class UserController {
         }
     }
 
-    static async logout(req, res, next) {
+    static async logout(req, res) {
         req.session.destroy((err) => {
             if (err) {
                 console.error('Error destroying session:', err);
