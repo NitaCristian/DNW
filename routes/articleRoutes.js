@@ -15,6 +15,8 @@ router.post('/:id/dislike', requireLogin, articleController.dislike);
 
 router.post('/:id/publish', requireLogin, articleController.publish)
 
+router.post('/:id/comment', requireLogin, articleController.comment)
+
 router.get("/:id/edit", requireLogin, articleController.edit);
 
 router.post("/:id/update", requireLogin, articleController.update);

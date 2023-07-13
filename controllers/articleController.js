@@ -1,4 +1,5 @@
 const articleRepository = require('../repositories/articlesRepository');
+const commentsRepository = require('../repositories/commentsRepository')
 
 class ArticleController {
     static async userIndex(req, res, next) {
@@ -45,13 +46,24 @@ class ArticleController {
     }
 
     static async show(req, res, next) {
-        const id = req.params.id;
+        const article_id = req.params.id;
 
         try {
-            const row = await articleRepository.get(id);
-            res.render('user/article', {article: row});
+            const article = await articleRepository.get(article_id);
+            const comments = await commentsRepository.allByArticle(article_id)
+            res.render('user/article', {article: article, comments: comments});
         } catch (err) {
             next(err);
+        }
+    }
+
+    static async comment(req, res, next) {
+        const comment = {user_id: req.session.user.id, article_id: req.params.id, message: req.body.message}
+        try {
+            await commentsRepository.insert(comment)
+            res.redirect(`/articles/${req.params.id}/`)
+        } catch (err) {
+            next(err)
         }
     }
 
@@ -91,7 +103,7 @@ class ArticleController {
     static async publish(req, res, next) {
         try {
             await articleRepository.publish_article(req.params.id);
-            res.redirect('/articles');
+            res.redirect('/articles/dashboard');
         } catch (err) {
             next(err);
         }

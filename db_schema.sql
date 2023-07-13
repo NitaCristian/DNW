@@ -39,7 +39,7 @@ create table comments
     user_id    integer                           not null,
     article_id integer                           not null,
     message    text                              not null,
-    created_at date default current_date         not null,
+    created_at date default CURRENT_TIMESTAMP    not null,
     foreign key (user_id) references users (id),
     foreign key (article_id) references articles (id)
 );

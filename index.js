@@ -64,10 +64,12 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes')
 const homeRoutes = require('./routes/homeRoutes')
+const commentRoutes = require('./routes/commentRoutes')
 
 app.use('/', homeRoutes)
 app.use('/user', userRoutes);
 app.use('/articles', articleRoutes)
+app.use('/comments', commentRoutes)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}! You can access it at: http://localhost:${port}.`)
