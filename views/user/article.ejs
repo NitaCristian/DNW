@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="mt-5">
-        <a href="/articles" class="btn btn-secondary">Back</a>
+    <div class="mt-2">
+        <a href="/articles/" class="btn btn-secondary">Go to all articles</a>
     </div>
 
     <div class="text-center">
@@ -55,18 +55,7 @@
             <div class="mt-4">
                 <% if (comments.length > 0) { %>
                     <% comments.forEach((comment) => { %>
-                        <div class="card mt-2">
-                            <div class="card-body">
-                                <p class="card-text"><%= comment.message %></p>
-                                <small><%= comment.created_at %></small>
-                                <div class="mt-2">
-                                    <form action="/comments/<%= comment.id %>/delete" method="POST"
-                                          style="display: inline;">
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <%- include('../partials/comment', { comment: comment }) %>
                     <% }) %>
                 <% } else { %>
                     <p>No comments yet.</p>

@@ -1,7 +1,12 @@
 class CommentsRepository {
     static async allByArticle(article_id) {
         return new Promise((resolve, reject) => {
-            db.all('SELECT * FROM comments WHERE article_id = ? order by created_at desc', article_id, (err, rows) => {
+            db.all(`SELECT comments.*,
+                           users.first_name || \' \' || users.last_name AS author_name
+                    FROM comments
+                             left join users on users.id = comments.user_id
+                    WHERE article_id = ?
+                    order by created_at`, article_id, (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
