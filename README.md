@@ -1,24 +1,21 @@
-#### Preparing for submission: TODO Remove this section ####
+# Getting started with my project
 
-Make a copy of this folder
-In your copy, delete the following files and folders:
+To begin working on the project, ensure that you have Node.js and Node Package Manager (npm)
+installed on your system
 
-* node_modules
-* .git (the hidden folder with your git repository)
-* database.db (your database)
+Follow these steps in sequence:
 
-Make sure that your package.json file includes all the dependencies for your project NB. you need to use
-the ```--save``` tag each time you use npm to install a dependency
+1. Execute `npm install` to install the necessary dependencies.
+2. Run npm `run build-db` to create the database.
+3. Finally, use `npm run start` to launch the web application.
 
-#### Getting started with my project ####
+Next, access the page http://localhost:3000/articles/ to view all published articles. Upon database
+creation, sample data such as predefined user accounts and articles will be available.
 
-Edit this section to include any settings that should be adjusted in configuration files and concise instructions for
-how to access the reader and author pages once the app is running.
+For immediate access without creating a new account, you can log in using the following credentials:
 
-NB. we will ONLY run ```npm install```, ```npm run build-db```, and ```npm run start``` . We will NOT install additional
-packages to run your code and will NOT run additional build scripts. Be careful with any additional node dependencies
-that you use.
+    Email: cristian.nita@email.com
+    Password: test
 
-
-
-
+Once logged in, you will have the possibility to create, edit, and publish articles, as well as
+post comments on articles and modify the blog's name and description.
