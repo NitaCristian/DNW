@@ -21,8 +21,9 @@ class ArticlesRepository {
             db.all(`SELECT articles.*,
                            users.first_name || ' ' || users.last_name AS author_name
                     FROM articles
-                             INNER JOIN users ON articles.author_id = ?
-                    WHERE articles.published_at IS NOT NULL
+                             INNER JOIN users ON users.id = articles.author_id
+                    WHERE articles.author_id = ?
+                      and articles.published_at IS NOT NULL
                     ORDER BY articles.published_at DESC`, [authorId], (err, rows) => {
                 if (err) {
                     reject(err);
@@ -38,8 +39,9 @@ class ArticlesRepository {
             db.all(`SELECT articles.*,
                            users.first_name || ' ' || users.last_name AS author_name
                     FROM articles
-                             INNER JOIN users ON articles.author_id = ?
-                    WHERE articles.published_at IS NULL
+                             INNER JOIN users ON users.id = articles.author_id
+                    WHERE articles.author_id = ?
+                      and articles.published_at IS NULL
                     ORDER BY articles.created_at DESC`, [authorId], (err, rows) => {
                 if (err) {
                     reject(err);

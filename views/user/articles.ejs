@@ -1,18 +1,20 @@
 <div class="container">
     <h1 class="mt-5">All Articles</h1>
     <% if (articles.length > 0) { %>
-        <div class="card-columns mt-4">
-            <% articles.forEach((article) => { %>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"><%= article.title %></h4>
-                        <h5 class="card-subtitle mb-2 text-muted"><%= article.subtitle %></h5>
-                        <p><%= article.published_at%></p>
-                        <a class="btn btn-primary" href="/articles/<%= article.id %>">Read</a>
+        <% articles.forEach((article) => { %>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= article.title %></h4>
+                            <h5 class="card-subtitle mb-2 text-muted"><%= article.subtitle %></h5>
+                            <p>Published at: <%= article.published_at %></p>
+                            <a class="btn btn-primary" href="/articles/<%= article.id %>">Read</a>
+                        </div>
                     </div>
                 </div>
-            <% }) %>
-        </div>
+            </div>
+        <% }) %>
     <% } else { %>
         <p>No articles found.</p>
     <% } %>

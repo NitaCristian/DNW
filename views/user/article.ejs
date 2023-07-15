@@ -21,39 +21,57 @@
         <p><%- article.content %></p>
     </div>
 
-    <div class="mt-5">
-        <h2>Comments</h2>
-        <form action="/articles/<%= article.id %>/comment" method="POST">
-            <div class="form-group">
-                <label>
-                    <textarea class="form-control" name="message" rows="3" placeholder="Write a comment"></textarea>
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <% if (article.published_at) { %>
 
-        <div class="mt-4">
-            <% if (comments.length > 0) { %>
-                <% comments.forEach((comment) => { %>
-                    <div class="card mt-2">
-                        <div class="card-body">
-                            <p class="card-text"><%= comment.message %></p>
-                            <small><%= comment.created_at %></small>
-                            <div class="mt-2">
-                                <form action="/comments/<%= comment.id %>/edit" method="GET" style="display: inline;">
-                                    <button type="" class="btn btn-primary btn-sm">Edit</button>
-                                </form>
-                                <form action="/comments/<%= comment.id %>/delete" method="POST"
-                                      style="display: inline;">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
+        <div class="mt-5">
+            <h2>Did you like this article?</h2>
+            <div>
+                <form action="/articles/<%= article.id %>/like" method="POST" class="d-inline">
+                    <%= article.likes %>
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="bi bi-hand-thumbs-up-fill">Like</i>
+                    </button>
+                </form>
+                <form action="/articles/<%= article.id %>/dislike" method="POST" class="d-inline">
+                    <%= article.dislikes %>
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="bi bi-hand-thumbs-down-fill"></i> Dislike
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2>Comments</h2>
+            <form action="/articles/<%= article.id %>/comment" method="POST">
+                <div class="form-group">
+                    <label>
+                        <textarea class="form-control" name="message" rows="4" placeholder="Write a comment"></textarea>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <div class="mt-4">
+                <% if (comments.length > 0) { %>
+                    <% comments.forEach((comment) => { %>
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <p class="card-text"><%= comment.message %></p>
+                                <small><%= comment.created_at %></small>
+                                <div class="mt-2">
+                                    <form action="/comments/<%= comment.id %>/delete" method="POST"
+                                          style="display: inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <% }) %>
-            <% } else { %>
-                <p>No comments yet.</p>
-            <% } %>
+                    <% }) %>
+                <% } else { %>
+                    <p>No comments yet.</p>
+                <% } %>
+            </div>
         </div>
-    </div>
+    <% } %>
 </div>

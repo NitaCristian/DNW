@@ -1,12 +1,8 @@
-// noinspection SpellCheckingInspection
-
 const express = require('express');
 const app = express();
 const port = 3000;
 const sqlite3 = require('sqlite3').verbose();
-// const methodOverride = require('method-override');
 const session = require('express-session');
-// const path = require('path');
 const expressLayouts = require('express-ejs-layouts')
 const blogSettingsRepository = require('./repositories/blogSettingsRepository')
 const handleErrors = require('./middleware/errorMiddleware')
@@ -61,6 +57,7 @@ fetchBlogSettings();
 
 // Middleware for serving static files
 app.use('/public', express.static(__dirname + '/public'))
+app.use('/bootstrap-icons', express.static(__dirname + '/node_modules/bootstrap-icons'))
 
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes')

@@ -1,22 +1,19 @@
 <div class="col-md-6 mb-4">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title"><%= article.title %></h5>
-            <h6 class="card-subtitle mt-1"><%= article.subtitle %></h6>
+            <h5 class="card-title text-center"><%= article.title %></h5>
+            <h6 class="card-subtitle mt-1 text-center"><%= article.subtitle %></h6>
             <div class="card-body">
-<!--                <p class="card-text"><%= article.content %></p>-->
                 <p class="card-text">
                     Created at: <%= article.created_at %> <br>
                     Modified at: <%= article.modified_at %> <br>
                     Published at: <%= article.published_at %>
                 </p>
             </div>
-            <div class="float-start">
-                <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm mb-1">Edit</a>
-
+            <div class="float-left">
+                <a href="/articles/<%= article.id %>/edit" class="btn btn-primary btn-sm">Edit</a>
                 <a href="/articles/<%= article.id %>/" class="btn btn-primary btn-sm">Read</a>
-
-                <form action="/articles/<%= article.id %>/delete" method="POST">
+                <form action="/articles/<%= article.id %>/delete" method="POST" style="display: inline;">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
             </div>
