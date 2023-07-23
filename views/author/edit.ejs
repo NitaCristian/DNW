@@ -1,6 +1,5 @@
 <div class="container">
-    <h1 class="mt-5">Edit Article</h1>
-
+    <h1 class="mt-5">Author - Edit Article Page</h1>
     <form action="/articles/<%= article.id %>/update" method="POST">
         <div class="form-group">
             <label for="title">Title</label>
@@ -8,11 +7,15 @@
         </div>
         <div class="form-group">
             <label for="subtitle">Subtitle</label>
-            <input type="text" class="form-control" id="subtitle" name="subtitle" value="<%= article.subtitle %>" required>
+            <input type="text" class="form-control" id="subtitle" name="subtitle"
+                   value="<%= article.subtitle %>"
+                   required>
         </div>
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea class="form-control summernote-editor" id="content" name="content" rows="8" required><%- article.content %></textarea>
+            <textarea class="form-control summernote-editor" id="content" name="content" rows="8" required>
+                    <%- article.content %>
+            </textarea>
         </div>
         <button type="submit" class="btn btn-primary">Update Article</button>
     </form>

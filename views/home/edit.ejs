@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="mt-5">Edit Blog</h1>
+    <h1 class="mt-5">Author - Settings Page</h1>
 
     <div class="mt-2">
         <a href="/articles/dashboard" class="btn btn-secondary">Back</a>
@@ -8,18 +8,18 @@
     <div class="mt-4">
         <form action="/update" method="POST">
             <div class="form-group">
-                <label for="blog_name">Title
-                    <input type="text" class="form-control" id="title" name="title" value="<%= title %>" required>
-                </label>
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%= title %>" required>
             </div>
             <div class="form-group">
-                <label for="first_name">Description
-                    text
-                    <textarea class="form-control summernote-editor" id="description" name="description" rows="4"
-                              required>
+                <label for="subtitle">Subtitle</label>
+                <input type="text" class="form-control" id="subtitle" name="subtitle" value="<%= subtitle %>" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control summernote-editor" id="description" name="description" rows="4" required>
                     <%- description %>
                 </textarea>
-                </label>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

@@ -7,7 +7,7 @@ installed on your system
 Follow these steps in sequence:
 
 1. Execute `npm install` to install the necessary dependencies.
-2. Run npm `run build-db` to create the database.
+2. Run npm `npm run build-db` to create the database.
 3. Finally, use `npm run start` to launch the web application.
 
 Next, access the page http://localhost:3000/articles/ to view all published articles. Upon database
@@ -16,6 +16,11 @@ creation, sample data such as predefined user accounts and articles will be avai
 For immediate access without creating a new account, you can log in using the following credentials:
 
     Email: cristian.nita@email.com
+    Password: test
+
+Another user created automatically that you can log in as is:
+    
+    Email: ion.popescu@email.com
     Password: test
 
 Once logged in, you will have the possibility to create, edit, and publish articles, as well as

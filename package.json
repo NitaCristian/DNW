@@ -9,7 +9,7 @@
     "clean-db": "rm database.db",
     "start": "node index.js"
   },
-  "author": "Simon Katan",
+  "author": "Cristian Nita",
   "license": "ISC",
   "dependencies": {
     "bootstrap-icons": "^1.10.5",
