@@ -1,5 +1,6 @@
 # Getting started with my project
 
+
 To begin working on the project, ensure that you have Node.js and Node Package Manager (npm)
 installed on your system
 
